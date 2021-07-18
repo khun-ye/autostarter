@@ -1,7 +1,7 @@
 name: autostarter
 description: A Flutter Plugin for bringing up the autostart permission of a phone.
-repository: 
-issue_tracker: 
+repository: https://github.com/yetunnaing18121996/autostarter
+issue_tracker: https://github.com/yetunnaing18121996/autostarter/issues
 author: Ye Tun Naing <greenscence.lso@gmail.com>
 version: 0.0.1
 
