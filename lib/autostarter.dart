@@ -11,7 +11,19 @@ class Autostarter {
     return autoStartAvailable;
   }
 
-  static Future<void> getAutoStartPermission() async{
-    await _channel.invokeMethod('getAutoStartPermission');
+  /// [open] : If true, it will attempt to open the activity,
+  /// otherwise it will just check its existence
+  ///
+  /// [newTask] : if true, the activity is attempted to be opened
+  /// it will add FLAG_ACTIVITY_NEW_TASK to the intent
+  static Future<void> getAutoStartPermission({
+    bool open = false,
+    bool newTask = false,
+  }) async {
+    Map<String, dynamic> args = <String, dynamic>{};
+    args.putIfAbsent("open", () => open);
+    args.putIfAbsent("newTask", () => newTask);
+
+    await _channel.invokeMethod('getAutoStartPermission', args);
   }
 }
