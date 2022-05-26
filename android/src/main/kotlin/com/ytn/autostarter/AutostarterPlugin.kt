@@ -31,8 +31,25 @@ class AutostarterPlugin: FlutterPlugin, MethodCallHandler, FlutterActivity() {
       val autoStartAvailable = AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(context)
       result.success(autoStartAvailable)
     } else if(call.method == "getAutoStartPermission"){
-      val success = AutoStartPermissionHelper.getInstance().getAutoStartPermission(context)
-      result.success(success)
+      val arguments = call.arguments as HashMap<String, Boolean>
+      val open: Boolean = arguments["open"] as Boolean
+      val newTask: Boolean =  arguments["newTask"] as Boolean
+
+      if(open){
+        val success = AutoStartPermissionHelper.getInstance().getAutoStartPermission(context, open = true)
+        result.success(success)
+      }else if(newTask){
+        val success = AutoStartPermissionHelper.getInstance().getAutoStartPermission(context, newTask = true)
+        result.success(success)
+      }else if(open && newTask){
+        val success = AutoStartPermissionHelper.getInstance().getAutoStartPermission(context, open = true, newTask = true)
+        result.success(success)
+      }else{
+        val success = AutoStartPermissionHelper.getInstance().getAutoStartPermission(context)
+        result.success(success)
+      }
+
+
     }
     else {
       result.notImplemented()
