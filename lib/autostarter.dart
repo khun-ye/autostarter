@@ -26,4 +26,16 @@ class Autostarter {
 
     await _channel.invokeMethod('getAutoStartPermission', args);
   }
+
+  static Future<bool?> checkAutoStartState()async{
+    return await _channel.invokeMethod("checkAutoStartPermissionState");
+  }
+
+  static Future<List<String>> getWhitelistedPackages() async{
+    return List<String>.from(await _channel.invokeMethod("getWhitelistedPackages"));
+  }
+
+  static Future<dynamic> giveAutoStartPermission() async{
+    return await _channel.invokeMethod("giveAutoStartPermission");
+  }
 }

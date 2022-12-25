@@ -15,17 +15,30 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> getAutoStartPermission() async {
     try {
       bool? isAvailable = await Autostarter.isAutoStartPermissionAvailable();
       if (isAvailable!) {
-        await Autostarter.getAutoStartPermission();
+        var status = await Autostarter.checkAutoStartState();
+        print(status);
+        if(status == null){
+
+        }else{
+          if(status == false){
+              await Autostarter.getAutoStartPermission(
+                newTask: true,
+              );
+            }else{
+               _messangerKey.currentState?.showSnackBar(
+                SnackBar(content: Text('You have already allowed the AutoStart Permission'))
+              );
+            }
+        }
+            
+
+
       } else {
         _messangerKey.currentState!.showSnackBar(SnackBar(
             content: Text(
